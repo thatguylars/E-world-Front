@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userApi } from "./userApi";
-import { swagsApi } from "./swagsApi";
+import { swagsApi } from "./swagApi";
 
 /*Requires authentication via token to be passed through the api*/
 const userSlice = createSlice({

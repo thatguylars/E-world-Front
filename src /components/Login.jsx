@@ -11,7 +11,7 @@ export default function Login() {
   const [message, setMessage] = useState("");
   const { token } = useSelector((state) => state.userSlice);
   const navigate = useNavigate();
-  const [loginUser] = useLoginUserMutation();
+ const [loginUser, { isLoading }] = useLoginUserMutation(); 
   const formChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -43,7 +43,9 @@ export default function Login() {
               aria-describedby="emailHelp"
               placeholder="Email"
               name="email"
+              value={form.email}
               onChange={formChange}
+              required
             />
           </div>
           <div className="form-group mb-2">
@@ -53,16 +55,21 @@ export default function Login() {
               id="exampleInputPassword1"
               placeholder="Password"
               name="password"
+              value={form.password}
               onChange={formChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary mb-2">
-            Login
+          <button
+            type="submit"
+            className="btn btn-primary mb-2"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login"} {/* Show loading state */}
           </button>
           <p className="text-danger">{message}</p>
           <p>
-            Don't have a library acount?
-            <Link to={"/register"}> Register for a new account</Link>
+            No swag for you{" "}
+            <Link to={"/register"}>Register for a new account</Link>
           </p>
         </form>
       )}

@@ -15,7 +15,7 @@ export default function Navigations() {
     <div className="navPage">
       <div className="container">
         <header className="d-flex justify-content-center py-3">
-          {/* <img id="logo-image" src={bookLogo} /> */}
+          <img id="image" src={""} />
           <nav className="nav nav-pills nav-fill">
             <a className="nav-item nav-link">
               <button className="nav-link" onClick={() => navigate("/")}>
@@ -52,6 +52,6 @@ export default function Navigations() {
           </nav>
         </header>
       </div>
-    // </div>
+     </div>
   );
 }

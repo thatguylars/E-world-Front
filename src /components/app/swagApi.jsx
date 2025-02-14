@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const swagsApi = createApi({
   reducerPath: "swagsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api",
+    baseUrl: "",
   }),
   endpoints: (builder) => ({
     /*Returns a list of all swags in the database*/

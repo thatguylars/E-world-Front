@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { swagsApi } from "./swagsApi";
+import { swagsApi } from "./swagApi";
 import { userApi } from "./userApi";
 
 const swagSlice = createSlice({
@@ -7,6 +7,16 @@ const swagSlice = createSlice({
   initialState: {
     swags: [],
     swag: null,
+  },
+  reducers: {
+    swagUpdated: (state, action) => {
+      // New reducer for updating a single swag
+      const updatedSwag = action.payload;
+      const index = state.swags.findIndex((swag) => swag.id === updatedSwag.id);
+      if (index !== -1) {
+        state.swags[index] = updatedSwag;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -53,3 +63,4 @@ const swagSlice = createSlice({
 });
 
 export default swagSlice.reducer;
+export const { swagUpdated } = swagSlice.actions;

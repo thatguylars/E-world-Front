@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import swagSlice from "./swagSlice";
-import { swagsApi } from "./swagsApi";
+import { swagsApi } from "./swagApi"; // Correct import
 import userSlice from "./userSlice";
 import { userApi } from "./userApi";
+import cartReducer from "../features/cart/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     swagSlice,
     [userApi.reducerPath]: userApi.reducer,
     userSlice,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(swagsApi.middleware, userApi.middleware),

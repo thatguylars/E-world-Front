@@ -1,31 +1,49 @@
 /* TODO - add your code to create a functional React component that renders account details for a logged in user. Fetch the account data from the provided API. You may consider conditionally rendering a message for other users that prompts them to log in or create an account.  */
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import {  useEffect } from "react";
+import { useSelector} from "react-redux";
 import { useGetUserQuery, useDeleteSwagMutation } from "./app/userApi.js";
 import Navigations from "./Navigations.jsx";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Account() {
   const { token, user } = useSelector((state) => state.userSlice);
+  const {
+    data: userData,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetUserQuery(token, { refetchOnMountOrArgChange: true });
   const [deleteSwag] = useDeleteSwagMutation();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const check = () => {
-    useEffect(() => {
+  useEffect(() => {
+    if (!token) {
       navigate("/login");
-    }, []);
-  };
-  if (!token) check();
-  if (token) {
-    useGetUserQuery(token, { refetchOnMountOrArgChange: true });
-  }
+    }
+  }, [token, navigate]); // Add navigate to dependency array
+
   const handleReturnSwag = async (swagId) => {
     try {
       await deleteSwag({ token: token, id: swagId });
+      await refetch(); 
     } catch (error) {
       console.error("Error returning swag:", error);
     }
   };
+
+  if (isLoading) {
+    return <p>Loading account details...</p>;
+  }
+
+  if (isError) {
+    return <p>Error loading account details.</p>;
+  }
+
+  if (!token || !userData) {
+    // Combined condition
+    return <p>Please log in to view your account.</p>;
+  }
 
   return (
     token &&
@@ -35,7 +53,7 @@ export default function Account() {
         <div>
           <blockquote className="blockquote text-center">
             <p className="mb-2">
-              Hi {user.firstname} {user.lastname}!
+              Hi {user.firstName} {user.lastName}!
               <br />
               {user.email}
             </p>
