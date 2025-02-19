@@ -1,10 +1,9 @@
 /* TODO - add your code to create a functional React component that renders account details for a logged in user. Fetch the account data from the provided API. You may consider conditionally rendering a message for other users that prompts them to log in or create an account.  */
-import {  useEffect } from "react";
-import { useSelector} from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useGetUserQuery, useDeleteSwagMutation } from "./app/userApi.js";
 import Navigations from "./Navigations.jsx";
 import { useNavigate } from "react-router-dom";
-
 
 export default function Account() {
   const { token, user } = useSelector((state) => state.userSlice);
@@ -21,12 +20,12 @@ export default function Account() {
     if (!token) {
       navigate("/login");
     }
-  }, [token, navigate]); // Add navigate to dependency array
+  }, [token, navigate]);
 
   const handleReturnSwag = async (swagId) => {
     try {
       await deleteSwag({ token: token, id: swagId });
-      await refetch(); 
+      await refetch();
     } catch (error) {
       console.error("Error returning swag:", error);
     }
@@ -65,7 +64,7 @@ export default function Account() {
               <h1 className="display-3">No swags checkout</h1>
             </div>
           )}
-          {user.swags.map((itm) => {
+          {userData.user.swags.map((itm) => {
             return (
               <div key={itm.id} className="card">
                 <img

@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import Cart from "./components/features/cart/cart";
 import SwagDisplay from "./components/app/swagDisplay.jsx"; // Import the SwagDisplay component
 import { useGetAllSwagsQuery } from "./components/app/swagApi.jsx"; // Import the hook

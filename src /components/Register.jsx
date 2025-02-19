@@ -1,4 +1,3 @@
-/* TODO - add your code to create a functional React component that renders a registration form */
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,24 +15,28 @@ export default function Register() {
     email: "",
     password: "",
   });
+  useEffect(() => {
+    if (token) {
+      navigate("/account");
+    }
+  }, [token, navigate]);
+
   const updateForm = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setMessage("");
   };
   const newUser = async (e) => {
     e.preventDefault();
-    const result = await registerUser(form);
-    if (result.error) {
-      setMessage(result.error.data.message);
-      return;
-    }
-    navigate("/account");
-  };
-  useEffect(() => {
-    const goAccount = () => {
+    setMessage("");
+      try {
+      const result = await registerUser(form).unwrap(); // Use .unwrap() for error handling
+      console.log("Registration successful:", result);
       navigate("/account");
-    };
-    if (token) goAccount();
-  }, []);
+    } catch (err) {
+      console.error("Registration error:", err);
+      setMessage(err?.data?.message || "Registration failed. Please check your details."); // More specific error message
+    }
+  };
 
   return (
     <div className="loginPage">

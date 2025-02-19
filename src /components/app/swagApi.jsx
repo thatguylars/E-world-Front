@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const swagsApi = createApi({
   reducerPath: "swagsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "",
+    baseUrl: "https://e-world-backend.onrender.com",
   }),
   endpoints: (builder) => ({
     /*Returns a list of all swags in the database*/

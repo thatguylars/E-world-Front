@@ -4,7 +4,7 @@ import App from "../src /App.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "../src /components/app/store.js";
-import SingleSwag from "../src /components/SingleSwag.jsx";
+import SingleSwag from "../src /components/app/SingleSwag.jsx";
 import Login from "../src /components/Login.jsx";
 import Register from "../src /components/Register.jsx";
 import Account from "../src /components/Account.jsx";
@@ -27,7 +27,8 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/Cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<div>404: Page Not Found</div>} />
         </Routes>
       </BrowserRouter>
     </Provider>

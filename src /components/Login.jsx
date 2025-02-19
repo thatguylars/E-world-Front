@@ -12,23 +12,32 @@ export default function Login() {
   const { token } = useSelector((state) => state.userSlice);
   const navigate = useNavigate();
  const [loginUser, { isLoading }] = useLoginUserMutation(); 
+
+  useEffect(() => {
+    if (token) {
+      navigate("/account");
+    }
+  }, [token, navigate]);
+
   const formChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setMessage("");
   };
   const login = async (e) => {
     e.preventDefault();
-    const result = await loginUser(form);
-    if (result.error) setMessage(result.error.data.message);
-    else navigate("/account");
-  };
-
-  useEffect(() => {
-    const goAccount = () => {
+    setMessage("");
+    try {
+      const result = await loginUser(form).unwrap();
+      console.log("Login successful:", result);
       navigate("/account");
-    };
-    if (token) goAccount();
-  }, []);
-
+    } catch (error) {
+      console.error("Login error:", error);
+      setMessage(
+        error?.data?.message || "Login failed. Please check your credentials.",
+      ); // More specific error
+    }
+  };
+ 
   return (
     <div className="loginPage">
       <Navigations />
