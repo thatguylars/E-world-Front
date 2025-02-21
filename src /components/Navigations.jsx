@@ -2,11 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "./app/userSlice";
 
-export default function Navigations() {
+const NavBar = () => {
   const { token } = useSelector((state) => state.userSlice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   return (
     <div className="navPage">
@@ -26,7 +25,6 @@ export default function Navigations() {
                 </button>
               </a>
             )}
-            {/* Account and Logout button needs to take in Token in order to display */}
             {token && (
               <a className="nav-item nav-link">
                 <button className="nav-link" onClick={() => navigate("/login")}>
@@ -49,6 +47,8 @@ export default function Navigations() {
           </nav>
         </header>
       </div>
-     </div>
+    </div>
   );
-}
+};
+
+export default NavBar;

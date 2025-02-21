@@ -16,3 +16,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(swagsApi.middleware, userApi.middleware),
 });
+
+export default store;
